@@ -3,6 +3,7 @@ import G6, { Graph } from "@antv/g6";
 import { NSlider, NSpace } from "naive-ui";
 import { computed, onMounted, ref } from "vue";
 const nodeCount = ref(5);
+const prob = ref(2);
 
 const generateNodeData = (value: number, width: number, height: number) => {
   const degree = (2 * Math.PI) / value;
@@ -14,29 +15,31 @@ const generateNodeData = (value: number, width: number, height: number) => {
   return data;
 };
 
-const generateEdgeData = (value: number) => {
+const generateEdgeData = (value: number, probability: number) => {
   const edges = [];
   for (let i = 0; i < value; i++) {
     for (let j = i + 1; j < value; j++) {
-      edges.push({
-        source: `node${i}`,
-        target: `node${j}`,
-        type: "quadratic",
-      });
+      if (Math.random() * 100 < probability) {
+          edges.push({
+          source: `node${i}`,
+          target: `node${j}`,
+          type: "quadratic",
+        });
+      }
     }
   }
   return edges;
 };
 
 const nodes = ref(generateNodeData(5, 800, 500));
-const edges = ref(generateEdgeData(5));
+const edges = ref(generateEdgeData(5, 2));
 
 let graph: Graph | undefined = undefined;
 
-const drawGraph = (value: number) => {
+const drawGraph = (value: number, probability: number) => {
   if (graph) {
     nodes.value = generateNodeData(value, graph.getWidth(), graph.getHeight());
-    edges.value = generateEdgeData(value);
+    edges.value = generateEdgeData(value, probability);
     const data = {
       nodes: nodes.value,
       edges: edges.value,
@@ -48,25 +51,36 @@ const drawGraph = (value: number) => {
 
 onMounted(() => {
   graph = new G6.Graph({
-    container: "full-connection",
+    container: "random-connection",
     width: 800,
     height: 500,
     modes: {
       default: ['drag-node'],
     },
   });
-  drawGraph(5);
+  drawGraph(5, 2);
 })
 
 const averageLength = computed(() => {
   const n = nodeCount.value;
   const f = new Array(n).fill(0).map(_ => new Array(n).fill(0x3f3f3f3f));
   for (let i = 0; i < n; i++) {
-    for (let j = 0; j < n; j++) {
-      f[i][j] = 1;
+    for (let j = i + 1; j < n; j++) {
+      if (edges.value.find(item => item.source === `node${i}` && item.target === `node${j}`)) {
+        f[i][j] = f[j][i] = 1;
+      }
     }
   }
   let tot = 0, cnt = 0;
+  for (let k = 0; k < n; k++) {
+    for (let i = 0; i < n; i++) {
+      for (let j = 0; j < n; j++) {
+        if (k !== i && i !== j && k !== j) {
+          f[i][j] = Math.min(f[i][j], f[i][k] + f[k][j]);
+        }
+      }
+    }
+  }
   for (let i = 0; i < n; i++) {
     for (let j = i + 1; j < n; j++) {
       tot += f[i][j];
@@ -103,12 +117,13 @@ const clusterCoefficient = computed(() => {
 
 <template>
   <n-space vertical>
-    <n-slider :min="2" :max="15" v-model:value="nodeCount" v-on:update:value="drawGraph(nodeCount)"></n-slider>
-    <div id="full-connection"></div>
+    <n-slider :min="1" :max="100" v-model:value="prob"
+      v-on:update:value="drawGraph(nodeCount, prob)">
+    </n-slider>
+    <n-slider :min="2" :max="15" v-model:value="nodeCount" v-on:update:value="drawGraph(nodeCount, prob)">
+    </n-slider>
+    <div id="random-connection"></div>
     <div>L<sub>GC</sub>={{ averageLength }}</div>
     <div>C<sub>GC</sub>={{ clusterCoefficient }}</div>
   </n-space>
 </template>
-
-
-
