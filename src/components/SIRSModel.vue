@@ -89,6 +89,7 @@ onMounted(() => {
           v-for="person in listS"
           :port="String(person.id)"
           :key="person.id"
+          style="width: 30px; height: 30px; margin: 10px"
         >
           <PersonNode :index="person.id" color="red"></PersonNode>
         </Starport>
@@ -107,6 +108,7 @@ onMounted(() => {
           v-for="person in listI"
           :port="String(person.id)"
           :key="person.id"
+          style="width: 30px; height: 30px; margin: 10px"
         >
           <PersonNode :index="person.id" color="yellow"></PersonNode>
         </Starport>
@@ -125,6 +127,7 @@ onMounted(() => {
           v-for="person in listR"
           :port="String(person.id)"
           :key="person.id"
+          style="width: 30px; height: 30px; margin: 10px"
         >
           <PersonNode :index="person.id" color="green"></PersonNode>
         </Starport>
@@ -140,18 +143,18 @@ onMounted(() => {
 .proxy-list-b-leave-active,
 .proxy-list-c-enter-active,
 .proxy-list-c-leave-active {
-  transition: all 0.8s ease;
+  transition: all 0.7s ease-in-out;
 }
 .proxy-list-a-enter-from,
 .proxy-list-a-leave-to {
-  margin-bottom: -7.5rem !important;
+  margin-bottom: -1.5rem !important;
 }
 .proxy-list-b-enter-from,
 .proxy-list-b-leave-to {
-  margin-bottom: -10rem !important;
+  margin-bottom: -1.5rem !important;
 }
 .proxy-list-c-enter-from,
 .proxy-list-c-leave-to {
-  margin-bottom: -12.5rem !important;
+  margin-bottom: -1.5rem !important;
 }
 </style>

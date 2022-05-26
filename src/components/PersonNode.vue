@@ -9,11 +9,10 @@ const { index, color } = defineProps<{
   <div
     :key="index"
     style="
-      width: 30px;
-      height: 30px;
+      width: 100%;
+      height: 100%;
       background: green;
       border-radius: 50%;
-      margin: 10px;
       color: white;
       display: flex;
       justify-content: center;

@@ -1,0 +1,5 @@
+{
+    "redirects": [
+        { "source" : "/:any+", "destination": "index.html" }
+    ]
+}

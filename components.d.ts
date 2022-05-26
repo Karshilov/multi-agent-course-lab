@@ -6,7 +6,6 @@ import '@vue/runtime-core'
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     FullConnection: typeof import('./src/components/FullConnection.vue')['default']
-    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     LinearThreshold: typeof import('./src/components/LinearThreshold.vue')['default']
     NeighboorConnection: typeof import('./src/components/NeighboorConnection.vue')['default']
     NSlider: typeof import('naive-ui')['NSlider']
@@ -15,7 +14,6 @@ declare module '@vue/runtime-core' {
     RandomConnection: typeof import('./src/components/RandomConnection.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    SIRModel: typeof import('./src/components/SIRModel.vue')['default']
     SIRSModel: typeof import('./src/components/SIRSModel.vue')['default']
     Starport: typeof import('vue-starport')['Starport']
     StarportCarrier: typeof import('vue-starport')['StarportCarrier']
