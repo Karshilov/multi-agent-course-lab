@@ -13,7 +13,7 @@ const generateNodeData = (value: number, width: number, height: number) => {
       id: `node${i}`,
       label: i === 0 ? (50 + Math.random() * 50).toFixed(0) : (Math.random() * 100).toFixed(0),
       style: {
-        fill: i === 0 ? "#f8f2f8" : "#steelblue",
+        fill: i === 0 ? "#f8f2f8" : "#5dac81",
       },
     };
   });
