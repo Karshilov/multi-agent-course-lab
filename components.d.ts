@@ -7,6 +7,7 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     FullConnection: typeof import('./src/components/FullConnection.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    LinearThreshold: typeof import('./src/components/LinearThreshold.vue')['default']
     NeighboorConnection: typeof import('./src/components/NeighboorConnection.vue')['default']
     NSlider: typeof import('naive-ui')['NSlider']
     NSpace: typeof import('naive-ui')['NSpace']
