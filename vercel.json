@@ -1,5 +1,3 @@
 {
-    "redirects": [
-        { "source" : "/:any+", "destination": "index.html" }
-    ]
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }
