@@ -63,14 +63,14 @@ const nextStep = () => {
         if (edge.source === node.id) {
           const activatedNode = nodes.value.find((n) => n.id === edge.target);
           if (activatedNode?.style.fill === "#f8f2f8") {
-            return parseInt(activatedNode.label);
+            return parseInt(edge.label);
           } else {
             return 0;
           }
         } else if (edge.target === node.id) {
           const activatedNode = nodes.value.find((n) => n.id === edge.source);
           if (activatedNode?.style.fill === "#f8f2f8") {
-            return parseInt(activatedNode.label);
+            return parseInt(edge.label);
           } else {
             return 0;
           }
